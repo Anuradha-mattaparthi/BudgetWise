@@ -42,36 +42,31 @@ class FamilyDetailController extends Controller
         // Return the view with filtered expenses and incomes
         return view('family-details.show', compact('familyDetail', 'expenses', 'incomes', 'totalExpenses', 'totalIncomes', 'month', 'year'));
     }
+public function store(Request $request)
+{
+    // Validate the input
+    $request->validate([
+        'family_name' => 'required|string|max:255',
+        'age' => 'nullable|integer|min:0',
+        'relationship' => 'nullable|string|max:255',
+        'spouse_name' => 'nullable|string|max:255',
+        'children' => 'nullable|numeric',
+    ]);
 
+    // Save the data
+    FamilyDetail::create([
+        'user_id' => Auth::id(),
+        'family_name' => $request->family_name,
+        'age' => $request->age,
+        'relationship' => $request->relationship,
+        'spouse_name' => $request->spouse_name,
+        'children' => $request->children,
+    ]);
 
+    // Redirect to dashboard with success message
+    return redirect('/dashboard')->with('success', 'Family details added successfully!');
+}
 
-
-    public function store(Request $request)
-    {
-        // Validate the input
-        $request->validate([
-            'family_name' => 'required|string|max:255',
-            'age' => 'nullable|integer|min:0',
-            'relationship' => 'nullable|string|max:255',
-            'spouse_name' => 'nullable|string|max:255',
-            'salary' => 'required|numeric|min:0',
-            'children' => 'nullable|nemeric',
-        ]);
-
-        // Save the data
-
-        FamilyDetail::create([
-            'user_id' => Auth::id(), // Assuming user is authenticated
-            'family_name' => $request->family_name,
-            'age' => $request->age,
-            'relationship' => $request->relationship,
-            'spouse_name' => $request->spouse_name,
-            'salary' => $request->salary,
-            'children'=>$request->children,
-        ]);
-
-        return response()->json(['message' => 'Family details added successfully!']);
-    }
     public function update(Request $request, $id)
 {
     // Validate the incoming request

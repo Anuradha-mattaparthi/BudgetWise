@@ -60,8 +60,22 @@
             </div>
         </div>
 
+        @if(Auth::user()->familyDetails == "")
+        <!-- Display Prompt to Add Family Details -->
+        <div class="max-w-4xl mx-auto text-center bg-gray-100 p-6 rounded-lg shadow-md">
+            <h3 class="text-xl font-bold text-gray-800">Add Family Details</h3>
+            <p class="text-gray-600">You haven’t added your family details yet.</p>
+            <p class="text-gray-600 mt-2">Please complete your personal information to proceed:</p>
+
+            <div class="flex justify-center gap-4 mt-4">
+                <a href="{{ route('family-details.create') }}" class="bg-sky-600 text-white px-4 py-2 rounded-md shadow hover:bg-blue-700 transition">
+                    Add Personal Details
+                </a>
+            </div>
+            <i class="fa-solid fa-exclamation-circle text-4xl text-gray-500 mt-4"></i>
+        </div>
         <!-- Display No Data Message if Expenses and Income are 0 -->
-        @if($income == 0 && $expenses == 0)
+        @elseif($income == 0 && $expenses == 0)
             <div class="max-w-4xl mx-auto text-center bg-gray-100 p-6 rounded-lg shadow-md">
                 <h3 class="text-xl font-bold text-gray-800">No Data Available</h3>
                 <p class="text-gray-600">You haven’t added any income or expenses yet.</p>
