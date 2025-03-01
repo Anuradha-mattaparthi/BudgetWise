@@ -1,3 +1,5 @@
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 text-center leading-tight">
@@ -88,17 +90,23 @@
                 <i class="fa-solid fa-exclamation-circle text-4xl text-gray-500 mt-4"></i>
             </div>
         @else
-            <!-- Left Side: Pie Chart Card -->
-            <div class="w-1/3 bg-white p-4 rounded-lg shadow-md">
-                <h3 class="text-lg font-bold mb-2 text-center">Income vs Expenses</h3>
-                <canvas id="incomeExpenseChart"></canvas>
-            </div>
+        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 mt-6">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <!-- Pie Chart (Income vs Expenses) -->
+                <div class="bg-white p-6 rounded-lg shadow-md">
+                    <h3 class="text-lg font-bold mb-4 text-center">Income vs Expenses</h3>
+                    <canvas id="incomeExpenseChart"></canvas>
+                </div>
 
-            <!-- Right Side: Yearly Chart -->
-            <div class="w-2/3 bg-white p-4 rounded-lg shadow-md">
-                <h3 class="text-xl font-bold text-gray-800 text-center mb-4">Income vs. Expenses ({{ now()->year }})</h3>
-                <canvas id="yearlyChart"></canvas>
+                <!-- Yearly Chart -->
+                <div class="bg-white p-6 rounded-lg shadow-md">
+                    <h3 class="text-xl font-bold text-gray-800 text-center mb-4">Income vs. Expenses ({{ now()->year }})</h3>
+                    <canvas id="yearlyChart"></canvas>
+                </div>
             </div>
+        </div>
+
+
         @endif
     </div>
 </x-app-layout>
